@@ -1,37 +1,38 @@
-#1 Create a folder on the desktop, open your vs code then go to file, open folder and select the folder you created.
-#2 Create the virtual environment: python -m venv venv
-#3 Activate the scripts: venv/Scripts/activate
-#4 install the modules, e.g numpy or  scikit-learn: pip install numpy 
-# pip install scikit-learn
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
 
-#5 Create requirements file: pip freeze > requirements.txt
-#6 install the requirements: pip install -r requirements.txt
+#Prepare the data, #Label data
+hours=[
+    [1],
+    [2],
+    [3],
+    [4],
+    [5],
+    [6],
+    [7],
+    [8],
+    [9],
+    [10]
+    ]
+score=[30,40,45,55,65,70,80,85,90,95]
 
-#7 Since we are working with python, create a file name then put the extension .py. Example model.py
-from sklearn.cluster import KMeans
-#Preparing Data
-students=[
-    [1,2],
-    [2,1],
-    [2,3],
-    [5,6],
-    [6,5],
-    [6,7],
-    [9,9],
-    [10,8],
-    [9,10]
-]
+#Create model
 
-#Create Model
-models=KMeans(n_clusters=3)
+model=LinearRegression()
 
-#Train Model
-models.fit(students)
+#Train model
 
-#Predict the clusters
-predictions=models.predict(students)
-print("clusters in assignments:", predictions)
+model.fit(hours, score)
 
-#create readable
-for i in range(len(students)):
-    print('students',i+1, 'belongs to cluster', predictions[i])
+user_hours=float(input("Enter study hours:"))
+
+
+#Predict
+prediction=model.predict([[user_hours]])
+print(f"Predicted score for {user_hours} hours: {round(prediction[0], 1)}")
+
+
+#Visualization
+
+plt.scatter(hours, score)
+plt.show()
